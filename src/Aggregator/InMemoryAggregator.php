@@ -15,6 +15,10 @@ class InMemoryAggregator implements AggregatorInterface {
     public function run(OutputInterface $output, InputStream $in, OutputStream $out) {
         $output->writeln('Чтение входного файла...');
 
+        $progress = new ProgressBar($output, $in->getSize());
+        $progress->setRedrawFrequency(1024 * 1024); // 1 Mb
+        $progress->start();
+
         // читаем ВЕСЬ входной файл
         $data = [];
         while(!$in->isEof()) {
@@ -23,7 +27,12 @@ class InMemoryAggregator implements AggregatorInterface {
             if(is_array($row)) {
                 $data[] = $row;
             }
+
+            $progress->setProgress($in->getPosition());
         }
+
+        $progress->finish();
+        $output->writeln('');
 
         $output->writeln('Группировка...');
         $progress = new ProgressBar($output, count($data));
