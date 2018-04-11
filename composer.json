@@ -1,0 +1,16 @@
+{
+    "name": "ilovemistakes/reklama-test",
+    "description": "Тестовое задание для reklama.guru",
+    "authors": [
+        {
+            "name": "Алексей Чупров",
+            "email": "ilovemistakes@mail.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Reklama\\": "src/"}
+    },
+    "require": {
+        "symfony/console": "^3.4"
+    }
+}
