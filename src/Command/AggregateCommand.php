@@ -39,12 +39,17 @@ class AggregateCommand extends Command {
         $in = new InputStream($input->getArgument('input'));
         $out = new OutputStream($input->getArgument('output'));
 
+        $started_at = microtime(true);
+
         $aggregator = $this->createAggregator($input->getOption('aggregator'), $in, $out);
 
         $aggregator->run($output, $in, $out);
 
         $output->writeln('<info>Готово.</info>');
 
+        $run_time = microtime(true) - $started_at;
+
         $output->writeln(sprintf('Пиковое выделение памяти: <info>%s</info> Мб.', round(memory_get_peak_usage(true) / 1024 / 1024)));
+        $output->writeln(sprintf('Время выполнения скрипта: <info>%s</info>м <info>%s</info>с.', floor($run_time / 60), $run_time % 60));
     }
 }
