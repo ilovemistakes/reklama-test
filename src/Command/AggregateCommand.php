@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Reklama\Stream\InputStream;
 use Reklama\Stream\OutputStream;
 use Reklama\Aggregator\InMemoryAggregator;
+use Reklama\Aggregator\SeekerAggregator;
 
 class AggregateCommand extends Command {
     protected function configure() {
@@ -19,7 +20,7 @@ class AggregateCommand extends Command {
             ->setHelp('Команда, выполняющая задачу из тестового задания.')
             ->addArgument('input', InputArgument::REQUIRED, 'Путь к файлу со входными данными.')
             ->addArgument('output', InputArgument::REQUIRED, 'Путь к файлу, в который требуется записать результат.')
-            ->addOption('aggregator', 'a', InputOption::VALUE_REQUIRED, 'Алгоритм агрегации. Доступные алгоритмы: in-memory.', 'in-memory')
+            ->addOption('aggregator', 'a', InputOption::VALUE_REQUIRED, 'Алгоритм агрегации. Доступные алгоритмы: seeker, in-memory.', 'seeker')
             ;
     }
 
@@ -27,6 +28,8 @@ class AggregateCommand extends Command {
         switch($name) {
         case 'in-memory':
             return new InMemoryAggregator();
+        case 'seeker':
+            return new SeekerAggregator();
         default:
             throw new \InvalidArgumentException(sprintf('Неизвестный агрегатор: ""', $name));
         }

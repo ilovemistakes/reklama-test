@@ -21,4 +21,12 @@ class InputStream extends DataStream {
     public function isEof() {
         return feof($this->f);
     }
+
+    public function getPosition() {
+        return ftell($this->f);
+    }
+
+    public function setPosition($position) {
+        return fseek($this->f, $position);
+    }
 }

@@ -8,9 +8,13 @@ namespace Reklama\Stream;
 abstract class DataStream {
     protected $f;
 
+    protected $size;
+
     abstract protected function getFileMode();
 
     public function __construct($filename) {
+        $this->size = filesize($filename);
+
         $f = fopen($filename, $this->getFileMode());
 
         if($f === false) {
@@ -30,5 +34,9 @@ abstract class DataStream {
         }
 
         fclose($this->f);
+    }
+
+    public function getSize() {
+        return $this->size;
     }
 }
