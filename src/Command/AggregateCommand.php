@@ -12,6 +12,7 @@ use Reklama\Stream\OutputStream;
 use Reklama\Aggregator\InMemoryAggregator;
 use Reklama\Aggregator\SeekerAggregator;
 use Reklama\Aggregator\BinaryAggregator;
+use Reklama\Aggregator\BinaryIndexedAggregator;
 
 class AggregateCommand extends Command {
     protected function configure() {
@@ -21,7 +22,7 @@ class AggregateCommand extends Command {
             ->setHelp('Команда, выполняющая задачу из тестового задания.')
             ->addArgument('input', InputArgument::REQUIRED, 'Путь к файлу со входными данными.')
             ->addArgument('output', InputArgument::REQUIRED, 'Путь к файлу, в который требуется записать результат.')
-            ->addOption('aggregator', 'a', InputOption::VALUE_REQUIRED, 'Алгоритм агрегации. Доступные алгоритмы: seeker, in-memory.', 'seeker')
+            ->addOption('aggregator', 'a', InputOption::VALUE_REQUIRED, 'Алгоритм агрегации. Доступные алгоритмы: binary, binary-indexed, seeker, in-memory.', 'seeker')
             ;
     }
 
@@ -33,6 +34,8 @@ class AggregateCommand extends Command {
             return new SeekerAggregator();
         case 'binary':
             return new BinaryAggregator();
+        case 'binary-indexed':
+            return new BinaryIndexedAggregator();
         default:
             throw new \InvalidArgumentException(sprintf('Неизвестный агрегатор: "%s"', $name));
         }
