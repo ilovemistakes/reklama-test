@@ -34,6 +34,7 @@ abstract class AbstractDataStream {
         }
 
         fclose($this->f);
+        $this->f = null;
     }
 
     public function getSize() {
