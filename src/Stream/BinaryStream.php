@@ -20,10 +20,12 @@ class BinaryStream extends AbstractBinaryStream {
     }
 
     public function writeItem($date, $data) {
-        $this->write(pack('L', DateToIntConverter::convert($date)));
-        foreach($data as $value) {
-            $this->write(pack('d', $value));
-        }
+        $this->write(
+            call_user_func_array('pack', array_merge([
+                'Ld*',
+                DateToIntConverter::convert($date),
+            ], $data))
+        );
     }
 
     public function readItem() {
