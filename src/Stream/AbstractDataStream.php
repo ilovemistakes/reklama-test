@@ -15,7 +15,7 @@ abstract class AbstractDataStream {
     public function __construct($filename) {
         $this->size = file_exists($filename) ? filesize($filename) : 0;
 
-        $f = fopen($filename, $this->getFileMode());
+        $f = @fopen($filename, $this->getFileMode());
 
         if($f === false) {
             throw new \InvalidArgumentException(sprintf('Ошибка открытия файла "%s"', $filename));
