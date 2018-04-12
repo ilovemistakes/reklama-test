@@ -11,6 +11,7 @@ use Reklama\Stream\InputStream;
 use Reklama\Stream\OutputStream;
 use Reklama\Aggregator\InMemoryAggregator;
 use Reklama\Aggregator\SeekerAggregator;
+use Reklama\Aggregator\BinaryAggregator;
 
 class AggregateCommand extends Command {
     protected function configure() {
@@ -30,8 +31,10 @@ class AggregateCommand extends Command {
             return new InMemoryAggregator();
         case 'seeker':
             return new SeekerAggregator();
+        case 'binary':
+            return new BinaryAggregator();
         default:
-            throw new \InvalidArgumentException(sprintf('Неизвестный агрегатор: ""', $name));
+            throw new \InvalidArgumentException(sprintf('Неизвестный агрегатор: "%s"', $name));
         }
     }
 

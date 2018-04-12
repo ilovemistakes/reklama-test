@@ -5,7 +5,7 @@ namespace Reklama\Stream;
 /**
  * Поток выходных данных
  */
-class OutputStream extends DataStream {
+class OutputStream extends AbstractDataStream {
     protected function getFileMode() {
         return 'w';
     }

@@ -5,7 +5,7 @@ namespace Reklama\Stream;
 /**
  * Обёртка для потока данных
  */
-abstract class DataStream {
+abstract class AbstractDataStream {
     protected $f;
 
     protected $size;
@@ -13,7 +13,7 @@ abstract class DataStream {
     abstract protected function getFileMode();
 
     public function __construct($filename) {
-        $this->size = filesize($filename);
+        $this->size = file_exists($filename) ? filesize($filename) : 0;
 
         $f = fopen($filename, $this->getFileMode());
 
@@ -38,5 +38,17 @@ abstract class DataStream {
 
     public function getSize() {
         return $this->size;
+    }
+
+    public function isEof() {
+        return feof($this->f);
+    }
+
+    public function getPosition() {
+        return ftell($this->f);
+    }
+
+    public function setPosition($position, $whence = SEEK_SET) {
+        return fseek($this->f, $position, $whence);
     }
 }

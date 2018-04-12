@@ -5,7 +5,7 @@ namespace Reklama\Stream;
 /**
  * Поток входных данных
  */
-class InputStream extends DataStream {
+class InputStream extends AbstractDataStream {
     protected function getFileMode() {
         return 'r';
     }
@@ -16,17 +16,5 @@ class InputStream extends DataStream {
         }
 
         return fgetcsv($this->f, 0, ';');
-    }
-
-    public function isEof() {
-        return feof($this->f);
-    }
-
-    public function getPosition() {
-        return ftell($this->f);
-    }
-
-    public function setPosition($position) {
-        return fseek($this->f, $position);
     }
 }
