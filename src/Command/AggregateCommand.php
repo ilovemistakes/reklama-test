@@ -22,7 +22,7 @@ class AggregateCommand extends Command {
             ->setHelp('Команда, выполняющая задачу из тестового задания.')
             ->addArgument('input', InputArgument::REQUIRED, 'Путь к файлу со входными данными.')
             ->addArgument('output', InputArgument::REQUIRED, 'Путь к файлу, в который требуется записать результат.')
-            ->addOption('aggregator', 'a', InputOption::VALUE_REQUIRED, 'Алгоритм агрегации. Доступные алгоритмы: binary, binary-indexed, seeker, in-memory.', 'seeker')
+            ->addOption('aggregator', 'a', InputOption::VALUE_REQUIRED, 'Алгоритм агрегации. Доступные алгоритмы: binary, binary-indexed, seeker, in-memory.', 'binary-indexed')
             ;
     }
 
